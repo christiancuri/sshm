@@ -1,11 +1,7 @@
 {
-  "watch": [
-    "src"
-  ],
-  "ignore": [
-    "src/**/*.spec.ts"
-  ],
+  "watch": ["src"],
+  "ignore": ["src/**/*.spec.ts"],
   "ext": "ts,json",
-  "exec": "etsc && node --enable-source-maps ./dist/main.js",
+  "exec": "etsc && node --enable-source-maps ./bin/main.js",
   "legacyWatch": true
 }

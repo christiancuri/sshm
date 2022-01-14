@@ -3,7 +3,7 @@ import { terminal } from "terminal-kit";
 
 import { Config } from "./config";
 
-export let hasConnection = void 0;
+export let hasConnection: boolean | undefined = void 0;
 
 export async function connectSSH(connectionId: number) {
   const config = await Config.getConfig();

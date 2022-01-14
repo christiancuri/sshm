@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es5",
     "module": "commonjs",
-    "lib": [
-      "es2020"
-    ],
+    "lib": ["es6", "es2015", "dom"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "./bin",
     "rootDir": "./src",
+    "types": ["node"],
     "downlevelIteration": true,
-    "strict": false,
+    "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "alwaysStrict": true,
@@ -24,11 +23,6 @@
     "forceConsistentCasingInFileNames": true,
     "preserveConstEnums": true
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ],
-  "include": [
-    "src/**/*"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "include": ["src/**/*"]
 }

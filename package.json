@@ -1,15 +1,32 @@
 {
   "name": "sshm",
   "version": "0.0.1",
-  "main": "dist/main.js",
-  "module": "dist/main.js",
+  "main": "bin/main.js",
+  "module": "bin/main.js",
+  "bin": {
+    "sshm": "bin/main.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "cli",
+    "sshm",
+    "ssh client manager",
+    "ssh manager",
+    "ssh manager unix",
+    "ssh manager terminal",
+    "terminal",
+    "ssh",
+    "manager"
+  ],
   "scripts": {
-    "start": "node --enable-source-maps dist/main.js",
+    "start": "node --enable-source-maps bin/main.js",
     "dev": "nodemon",
     "build:watch": "tsc --watch",
     "build": "yarn build:clean && tsc ; yarn postbuild",
-    "build:clean": "rimraf dist",
-    "postbuild": "copyfiles -u 1 -e \"**/*.ts\" \"src/**/*\" dist",
+    "build:clean": "rimraf bin",
+    "postbuild": "copyfiles -u 1 -e \"**/*.ts\" \"src/**/*\" bin",
     "lint": "eslint ./src --ext .ts"
   },
   "license": "ISC",

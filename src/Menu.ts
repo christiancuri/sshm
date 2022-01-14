@@ -10,7 +10,7 @@ import { Utils } from "./utils";
 
 let INPUT_PROMISES: { abort: () => void }[] = [];
 
-export let DRAW_MAIN_MENU_WHEN_BREAK = void 0;
+export let DRAW_MAIN_MENU_WHEN_BREAK: boolean | undefined = void 0;
 
 export enum SystemMenu {
   DIVIDER = " ",
@@ -24,7 +24,7 @@ export async function getMenu(backOption = false): Promise<string[]> {
 
   const connections = config.connections.map(
     ({ name, user, host, port, description }, index) =>
-      `${index}|${name.trim()}|${`${user.trim()}@${host.trim()}:${port}|${description.trim()}`}`,
+      `${index}|${name.trim()}|${`${user.trim()}@${host.trim()}:${port}|${description?.trim()}`}`,
   );
 
   const menu: string[] = !backOption
@@ -92,7 +92,10 @@ export async function drawMainMenu() {
   });
 }
 
-async function inputField(question: string, options?: InputFieldOptions) {
+async function inputField(
+  question: string,
+  options?: InputFieldOptions,
+): Promise<string> {
   terminal.white(`\n${question}: `);
   const input = terminal.inputField({
     cancelable: false,
@@ -103,7 +106,7 @@ async function inputField(question: string, options?: InputFieldOptions) {
 
   INPUT_PROMISES.push(input);
 
-  return input.promise;
+  return input.promise as Promise<string>;
 }
 
 async function fileField(question: string) {
@@ -116,7 +119,7 @@ async function fileField(question: string) {
     });
 
     if (!input || typeof input !== "string") {
-      input = undefined;
+      return;
     } else {
       input = path.resolve(
         path.isAbsolute(input)
