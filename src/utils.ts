@@ -23,4 +23,22 @@ export function createTable(array: string[]): string[] {
   });
 }
 
+export function formatConnectionDetails(array: string[]): string[] {
+  const biggerSizes = [0, 0]; // [biggerSizeId, biggerSizeName, biggerSizeConnection, biggerSizeDescription]
+
+  array.forEach((item) => {
+    item.split(": ").forEach((item, index) => {
+      if (item?.trim().length > biggerSizes[index])
+        biggerSizes[index] = item.trim().length;
+    });
+  });
+
+  return array.map((item) => {
+    const [key, value] = item
+      .split(": ")
+      .map((item, index) => fillEmpty(item, biggerSizes[index]));
+    return util.format(`%s   %s`, key, value);
+  });
+}
+
 export * as Utils from "./utils";
