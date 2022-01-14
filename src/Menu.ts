@@ -79,16 +79,8 @@ export async function drawMainMenu() {
 
   const menuItems = await getMenu();
 
-  terminal.singleColumnMenu(menuItems, async (error, response) => {
+  terminal.singleColumnMenu(menuItems, async (_error, response) => {
     handleMenu(response.selectedText);
-    //
-    // terminal("\n").eraseLineAfter.green(
-    //   "#%s selected: %s (%s,%s)\n",
-    //   response.selectedIndex,
-    //   response.selectedText,
-    //   response.x,
-    //   response.y,
-    // );
   });
 }
 

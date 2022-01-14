@@ -47,7 +47,7 @@ export async function connectSSH(connectionId: number) {
     hasConnection = void 0;
     ssh.kill();
     terminal.green(
-      `Thanks for using SSH Manager ${await Config.getAppVersion()}`,
+      `Thanks for using SSH Manager v${await Config.getAppVersion()}`,
     );
     terminal.processExit(0);
   };
