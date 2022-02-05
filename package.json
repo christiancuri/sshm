@@ -33,6 +33,7 @@
   "dependencies": {
     "copyfiles": "^2.4.0",
     "rimraf": "^3.0.2",
+    "ssh2": "^1.6.0",
     "terminal-kit": "^2.3.0",
     "typescript": "^4.0.3"
   },
@@ -46,6 +47,7 @@
     "@types/mongoose": "5.10.5",
     "@types/morgan": "^1.9.1",
     "@types/node": "^14.17.9",
+    "@types/ssh2": "^0.5.51",
     "@types/terminal-kit": "^1.28.4",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",

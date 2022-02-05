@@ -1,14 +1,12 @@
 import os from "os";
 import path from "path";
 import { terminal } from "terminal-kit";
-import { InputFieldOptions } from "terminal-kit/Terminal";
 
 import { autoCompleter } from "./autoCompleter";
 import { Config } from "./config";
 import { Connection } from "./connection";
+import { MenuUtils } from "./MenuUtils";
 import { Utils } from "./utils";
-
-let INPUT_PROMISES: { abort: () => void }[] = [];
 
 export let DRAW_MAIN_MENU_WHEN_BREAK: boolean | undefined = void 0;
 
@@ -67,10 +65,7 @@ async function drawTitle() {
 }
 
 export async function drawMainMenu() {
-  if (INPUT_PROMISES.length) {
-    for (const input of INPUT_PROMISES) input.abort();
-    INPUT_PROMISES = [];
-  }
+  MenuUtils.abortInputs();
 
   DRAW_MAIN_MENU_WHEN_BREAK = void 0;
 
@@ -84,26 +79,9 @@ export async function drawMainMenu() {
   });
 }
 
-async function inputField(
-  question: string,
-  options?: InputFieldOptions,
-): Promise<string> {
-  terminal.white(`\n${question}: `);
-  const input = terminal.inputField({
-    cancelable: false,
-    minLength: 2,
-    maxLength: 25,
-    ...(options || {}),
-  });
-
-  INPUT_PROMISES.push(input);
-
-  return input.promise as Promise<string>;
-}
-
 async function fileField(question: string) {
   try {
-    let input = await inputField(question, {
+    let input = await MenuUtils.inputField(question, {
       minLength: 0,
       autoCompleteHint: true,
       autoComplete: autoCompleter,
@@ -133,11 +111,13 @@ async function drawCreateConnectionMenu() {
 
   terminal.white(`\nFill the connection details: \n`);
 
-  const name = await inputField(`Name`);
-  const description = await inputField(`Description`, { maxLength: 36 });
-  const user = await inputField(`User`);
-  const host = await inputField(`Host`);
-  const inputPort = await inputField(`Port`, {
+  const name = await MenuUtils.inputField(`Name`);
+  const description = await MenuUtils.inputField(`Description`, {
+    maxLength: 36,
+  });
+  const user = await MenuUtils.inputField(`User`);
+  const host = await MenuUtils.inputField(`Host`);
+  const inputPort = await MenuUtils.inputField(`Port`, {
     default: "22",
   });
   const identify_file = await fileField(`Identify file (optional)`);
