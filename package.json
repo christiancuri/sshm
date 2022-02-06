@@ -1,6 +1,6 @@
 {
   "name": "sshm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "bin/main.js",
   "module": "bin/main.js",
   "bin": {
@@ -31,8 +31,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "copyfiles": "^2.4.0",
-    "rimraf": "^3.0.2",
     "ssh2": "^1.6.0",
     "terminal-kit": "^2.3.0",
     "typescript": "^4.0.3"
@@ -51,6 +49,8 @@
     "@types/terminal-kit": "^1.28.4",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
+    "copyfiles": "^2.4.0",
+    "rimraf": "^3.0.2",
     "esbuild": "^0.14.11",
     "esbuild-node-tsc": "^1.0.4",
     "eslint": "^7.13.0",
