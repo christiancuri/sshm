@@ -132,35 +132,6 @@ export async function connectSSH(connectionId: number) {
   process.on(`SIGHUP`, close);
   process.on(`SIGUSR1`, close);
   process.on(`SIGUSR2`, close);
-
-  // const command = ["-tt"];
-
-  // if (connection.identify_file) command.push("-i", connection.identify_file);
-
-  // command.push(
-  //   `${connection.user}@${connection.host}`,
-  //   "-p",
-  //   connection.port.toString(),
-  // );
-
-  // const ssh = spawn(`ssh`, command, {
-  //   detached: true,
-  //   shell: true,
-
-  // });
-
-  // ssh.unref();
-
-  // hasConnection = true;
-
-  // process.stdin.setRawMode(true);
-  // process.stdin.pipe(ssh.stdin);
-
-  // ssh.stderr.pipe(process.stderr);
-  // ssh.stdout.pipe(process.stdout);
-
-  // ssh.on("error", close);
-  // ssh.on(`exit`, close);
 }
 
 export * as Connection from "./connection";
