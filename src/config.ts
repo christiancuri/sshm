@@ -60,6 +60,7 @@ export async function getConfig(): Promise<TConfig> {
   if (await configExists()) {
     const content = await fs.readFile(CONFIG_PATH, "utf-8");
     const config = JSON.parse(content);
+    sortConfigConnections(config);
     CONFIG = config;
   } else {
     CONFIG = DEFAULT_CONFIG;
@@ -76,6 +77,10 @@ export async function getAppVersion(): Promise<string> {
     APP_VERSION = version;
   }
   return APP_VERSION;
+}
+
+function sortConfigConnections(config: TConfig) {
+  config.connections.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export * as Config from "./config";

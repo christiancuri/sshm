@@ -80,9 +80,9 @@ export async function connectSSH(connectionId: number) {
 
   const resizeStream = (stream: ClientChannel) => {
     stream.setWindow(
-      process.stdout.rows,
-      process.stdout.columns,
-      ...process.stdout.getWindowSize(),
+      process.stdout.rows as any,
+      process.stdout.columns as any,
+      ...(process.stdout.getWindowSize() as [any, any]),
     );
   };
 
