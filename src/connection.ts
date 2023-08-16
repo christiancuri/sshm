@@ -102,7 +102,7 @@ export async function connectSSH(connectionId: number) {
     ];
 
     client.shell(
-      { rows, cols: columns, height, width, term: "xterm-256color" },
+      { rows, cols: columns, height, width, term: process.env.TERM },
       { env: process.env },
       (err, stream) => {
         if (err) {
