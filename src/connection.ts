@@ -95,24 +95,34 @@ export async function connectSSH(connectionId: number) {
     terminal.fullscreen(false);
     hasConnection = true;
 
-    client.shell((err, stream) => {
-      if (err) {
-        terminal.red(err);
-        terminal.processExit(0);
-        return;
-      }
-      process.stdin.setRawMode(true);
-      process.stdin.pipe(stream);
-      process.stdin.unref();
-      stream.pipe(process.stdout);
-      stream.stderr.pipe(process.stderr);
-      resizeStream(stream);
-      process.stdout.on("resize", () => resizeStream(stream));
+    const [rows, columns, [height, width]] = [
+      process.stdout.rows,
+      process.stdout.columns,
+      process.stdout.getWindowSize(),
+    ];
 
-      stream.on("close", () => {
-        close();
-      });
-    });
+    client.shell(
+      { rows, cols: columns, height, width, term: "xterm-256color" },
+      { env: process.env },
+      (err, stream) => {
+        if (err) {
+          terminal.red(err);
+          terminal.processExit(0);
+          return;
+        }
+        process.stdin.setRawMode(true);
+        process.stdin.pipe(stream);
+        process.stdin.unref();
+        stream.pipe(process.stdout);
+        stream.stderr.pipe(process.stderr);
+        resizeStream(stream);
+        process.stdout.on("resize", () => resizeStream(stream));
+
+        stream.on("close", () => {
+          close();
+        });
+      },
+    );
   } catch (error) {
     if ((error as any)?.level === "client-authentication") {
       terminal.brightRed(
